@@ -26,11 +26,12 @@ public class ClubEntity {
 
     private int totalMoney;
 
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="userClient_id")
     private UUID userId;
 
+
     @OneToOne
-    //JoinColumn(name="user_id", insertable = false,updatable = false)
+    //@JoinColumn(name="user_id", insertable = false,updatable = false)
     private UserEntity userEntity;
 
     @OneToMany(mappedBy = "clubEntity")
