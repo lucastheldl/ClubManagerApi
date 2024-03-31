@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VerifyHasPlayerDTO {
     private String email;
-    private String playerId;
+    private String playerName;
 }
