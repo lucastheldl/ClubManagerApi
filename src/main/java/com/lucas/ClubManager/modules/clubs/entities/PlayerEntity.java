@@ -1,4 +1,4 @@
-package com.lucas.ClubManager.modules.users.entities;
+package com.lucas.ClubManager.modules.clubs.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

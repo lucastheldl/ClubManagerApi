@@ -1,9 +1,9 @@
-package com.lucas.ClubManager.modules.users.entities;
+package com.lucas.ClubManager.modules.clubs.entities;
 
+import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 

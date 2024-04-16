@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.users.entities;
 
+import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
