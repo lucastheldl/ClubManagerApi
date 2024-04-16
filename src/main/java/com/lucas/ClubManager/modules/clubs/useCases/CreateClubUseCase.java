@@ -1,6 +1,6 @@
 package com.lucas.ClubManager.modules.clubs.useCases;
 
-import com.lucas.ClubManager.modules.clubs.dto.CreateClubDto;
+
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.users.repositories.ClubRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,16 @@ public class CreateClubUseCase {
 
     public String execute(ClubEntity club){
 
-        this.clubRepository.save(club);
-        return "Success";
+        try {
+            clubRepository.save(club);
+
+            System.out.println("Club created: " + club.getId());
+
+            return "Club created successfully";
+        } catch (Exception e) {
+            System.err.println("Error creating club: " + e.getMessage());
+
+            return "Error creating club: " + e.getMessage();
+        }
     }
 }
