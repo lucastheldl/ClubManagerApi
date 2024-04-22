@@ -35,7 +35,7 @@ public class ClubEntity {
     //@JoinColumn(name="user_id", insertable = false,updatable = false)
     private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "clubEntity")
+    @OneToMany(mappedBy = "clubEntity",cascade = CascadeType.ALL)
     private List<PlayerEntity> players;
 
     @CreationTimestamp

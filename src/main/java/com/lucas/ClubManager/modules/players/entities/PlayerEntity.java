@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.players.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ public class PlayerEntity {
     private UUID clubId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="club_id",insertable = false,updatable = false)
     private ClubEntity clubEntity;
+
+
 }

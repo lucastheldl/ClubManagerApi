@@ -1,6 +1,9 @@
 package com.lucas.ClubManager.modules.clubs.controllers;
 
 
+import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
+import com.lucas.ClubManager.modules.clubs.useCases.BuyPlayerUseCase;
+import com.lucas.ClubManager.modules.clubs.useCases.ListAllClubsUseCase;
 import com.lucas.ClubManager.modules.players.dto.PlayerIdDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.useCases.CreateClubUseCase;
@@ -9,12 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/club")
 public class ClubController {
 
     @Autowired
     private CreateClubUseCase createClubUseCase;
+    @Autowired
+    private BuyPlayerUseCase buyPlayerUseCase;
+    @Autowired
+    private ListAllClubsUseCase listAllClubsUseCase;
 
 
     @PostMapping("/createClub")
@@ -26,15 +35,14 @@ public class ClubController {
             String result = this.createClubUseCase.execute(club);
             return ResponseEntity.ok(result);
     }
-    @PostMapping("/buyPlayer")
-    public ResponseEntity<String> buyPlayer(@RequestBody PlayerIdDTO playerIdDto){
+    @PatchMapping("/buyPlayer")
+    public ResponseEntity<String> buyPlayer(@RequestBody BuyPlayerDTO buyPlayerDTO){
 
-            if (playerIdDto.getPlayerId() == null) {
+            if (buyPlayerDTO.getPlayerId() == null) {
                 return ResponseEntity.badRequest().body("Player invalid");
             }
-            //String result = this.createClubUseCase.execute(club);
-            //return ResponseEntity.ok(result);
-        return ResponseEntity.ok("result");
+            String result = this.buyPlayerUseCase.execute(buyPlayerDTO);
+            return ResponseEntity.ok(result);
     }
     @PatchMapping("/sellPlayer")
     public ResponseEntity<String> sellPlayer(@RequestBody PlayerIdDTO playerIdDto){
@@ -59,5 +67,11 @@ public class ClubController {
         //String result = this.createClubUseCase.execute(club);
         //return ResponseEntity.ok(result);
         return ResponseEntity.ok("result");
+    }@GetMapping("/listAll")
+    public ResponseEntity<List<ClubEntity>> listAllClubs(){
+
+        var result = this.listAllClubsUseCase.execute();
+        //return ResponseEntity.ok(result);
+        return ResponseEntity.ok(result);
     }
 }
