@@ -30,6 +30,10 @@ public class ClubEntity {
     @JoinColumn(name="userClient_id")
     private UUID userId;
 
+    @Column(columnDefinition = "INTEGER DEFAULT 0")
+    private int teamVictories;
+    @Column(columnDefinition = "INTEGER DEFAULT 0")
+    private int teamLosses ;
 
     @OneToOne
     //@JoinColumn(name="user_id", insertable = false,updatable = false)
@@ -37,6 +41,9 @@ public class ClubEntity {
 
     @OneToMany(mappedBy = "clubEntity",cascade = CascadeType.ALL)
     private List<PlayerEntity> players;
+
+    @OneToMany(mappedBy = "titularInClubEntity",cascade = CascadeType.ALL)
+    private List<PlayerEntity> titularPlayers;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

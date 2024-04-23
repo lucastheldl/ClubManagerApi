@@ -31,5 +31,10 @@ public class PlayerEntity {
     @JoinColumn(name="club_id",insertable = false,updatable = false)
     private ClubEntity clubEntity;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="titular_club_id",insertable = false,updatable = false)
+    private ClubEntity titularInClubEntity;
+
 
 }
