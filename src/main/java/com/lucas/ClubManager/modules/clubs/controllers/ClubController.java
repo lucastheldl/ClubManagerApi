@@ -2,12 +2,9 @@ package com.lucas.ClubManager.modules.clubs.controllers;
 
 
 import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
-import com.lucas.ClubManager.modules.clubs.useCases.BuyPlayerUseCase;
-import com.lucas.ClubManager.modules.clubs.useCases.ListAllClubsUseCase;
-import com.lucas.ClubManager.modules.clubs.useCases.SellPlayerUseCase;
-import com.lucas.ClubManager.modules.players.dto.PlayerIdDTO;
+import com.lucas.ClubManager.modules.clubs.dto.ClubSummaryDTO;
+import com.lucas.ClubManager.modules.clubs.useCases.*;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
-import com.lucas.ClubManager.modules.clubs.useCases.CreateClubUseCase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,8 @@ public class ClubController {
     private SellPlayerUseCase sellPlayerUseCase;
     @Autowired
     private ListAllClubsUseCase listAllClubsUseCase;
+    @Autowired
+    private GetClubSummaryUseCase getClubSummaryUseCase;
 
 
     @PostMapping("/createClub")
@@ -64,10 +63,10 @@ public class ClubController {
         //return ResponseEntity.ok(result);
         return ResponseEntity.ok("result");
     }
-    @GetMapping("/clubSummary")
-    public ResponseEntity<String> clubSummary(){
+    @PostMapping("/clubSummary")
+    public ResponseEntity<String> clubSummary(ClubSummaryDTO dto){
 
-        //String result = this.createClubUseCase.execute(club);
+        ClubEntity result = this.getClubSummaryUseCase.execute(dto);
         //return ResponseEntity.ok(result);
         return ResponseEntity.ok("result");
     }@GetMapping("/listAll")

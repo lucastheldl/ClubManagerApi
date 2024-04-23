@@ -2,7 +2,8 @@ package com.lucas.ClubManager.modules.clubs.useCases;
 
 
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
-import com.lucas.ClubManager.modules.users.repositories.UserPlayerRepository;
+import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
+import com.lucas.ClubManager.modules.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +13,18 @@ import java.util.Optional;
 public class CreateClubUseCase {
 
     @Autowired
-    private UserPlayerRepository userPlayerRepository;
+    private ClubRepository clubRepository;
 
     public String execute(ClubEntity club){
 
         try {
-            Optional<ClubEntity> existingClub = userPlayerRepository.findByName(club.getName());
+            Optional<ClubEntity> existingClub = clubRepository.findByName(club.getName());
 
             if (existingClub.isPresent()) {
                return "Club with name already exists";
             } else {
                 // No club with the same name exists, save the new club
-                userPlayerRepository.save(club);
+                clubRepository.save(club);
                 System.out.println("Club created: " + club.getId());
                 return "Club created successfully";
             }

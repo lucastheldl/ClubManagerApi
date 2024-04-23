@@ -12,5 +12,7 @@ import java.util.UUID;
 
 @Repository
 public interface ClubRepository extends JpaRepository<ClubEntity, UUID> {
+    @Query("SELECT c FROM club c WHERE c.name = :name")
+    Optional<ClubEntity> findByName(String name);
 
 }

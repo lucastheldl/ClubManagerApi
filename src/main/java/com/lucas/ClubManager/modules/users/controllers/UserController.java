@@ -27,4 +27,14 @@ public class UserController {
         //System.out.println(result);
         return "Não possui o jogador";
     }
+    @PostMapping("/register")
+    public String registerUser(@RequestBody VerifyHasPlayerDTO verifyHasPlayerDTO){
+        var result = this.verifyIfHasPlayerUseCase.execute(verifyHasPlayerDTO);
+
+        if(result){
+            return "Já possui o jogador";
+        }
+        //System.out.println(result);
+        return "Não possui o jogador";
+    }
 }
