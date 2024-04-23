@@ -27,6 +27,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "Profile_Image")
+    private String imgURL;
+
     @Column(name="club_id")
     private UUID clubId;
 
