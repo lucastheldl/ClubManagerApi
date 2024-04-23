@@ -28,8 +28,8 @@ public class RegisterUserUseCase {
             if (dto.getImgURL() != null) {
                 user.setImgURL(dto.getImgURL());
             }
-
-            return "User registered successfully";
+            UserEntity result = this.userRepository.save(user);
+            return ("User registered successfully, id: " + result.getId().toString());
         }catch (Exception e){
             System.err.println("Error in registration player"+ e.getMessage());
             return "Error in registration";
