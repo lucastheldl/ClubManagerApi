@@ -11,8 +11,12 @@ import java.util.UUID;
 @Service
 public class GetUserUseCase {
 
+
+    private final UserRepository userRepository;
     @Autowired
-    private UserRepository userRepository;
+    public GetUserUseCase(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
     public UserEntity execute(UUID id){
 
         try{

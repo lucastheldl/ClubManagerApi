@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class ListAllPlayersUseCase {
-    @Autowired
+
     private PlayerRepository playerRepository;
+    @Autowired
+    public ListAllPlayersUseCase(PlayerRepository playerRepository){
+        this.playerRepository = playerRepository;
+    }
     public List<PlayerEntity> execute(){
         try {
             List< PlayerEntity > playersList = this.playerRepository.getAllPlayersList();

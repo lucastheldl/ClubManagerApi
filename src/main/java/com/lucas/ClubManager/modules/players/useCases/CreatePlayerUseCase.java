@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreatePlayerUseCase {
-    @Autowired
+
     private PlayerRepository playerRepository;
+    @Autowired
+    public CreatePlayerUseCase(PlayerRepository playerRepository){
+        this.playerRepository = playerRepository;
+    }
 
     public boolean execute(PlayerEntity player){
         try{

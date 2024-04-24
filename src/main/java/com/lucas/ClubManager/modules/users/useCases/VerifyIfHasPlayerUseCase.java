@@ -10,6 +10,8 @@ public class VerifyIfHasPlayerUseCase {
 
     @Autowired
     private UserRepository userRepository;
+
+
     public boolean execute(VerifyHasPlayerDTO dto){
         var result = this.userRepository.findByUserEmailAndPlayerId(dto.getEmail(), dto.getPlayerName());
 

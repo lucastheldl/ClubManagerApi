@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class ListAllClubsUseCase {
 
-    @Autowired
+
     private ClubRepository clubRepository;
+    @Autowired
+    public ListAllClubsUseCase(ClubRepository clubRepository){
+        this.clubRepository=clubRepository;
+    }
     public List<ClubEntity> execute(){
         try{
             return this.clubRepository.findAll();

@@ -3,6 +3,7 @@ package com.lucas.ClubManager.modules.clubs.useCases;
 
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
+import com.lucas.ClubManager.modules.players.repoitories.PlayerRepository;
 import com.lucas.ClubManager.modules.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,13 @@ import java.util.Optional;
 @Service
 public class CreateClubUseCase {
 
-    @Autowired
     private ClubRepository clubRepository;
+
+    @Autowired
+    public CreateClubUseCase(ClubRepository clubRepository){
+        this.clubRepository = clubRepository;
+
+    }
 
     public String execute(ClubEntity club){
 

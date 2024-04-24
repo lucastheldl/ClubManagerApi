@@ -3,6 +3,7 @@ package com.lucas.ClubManager.modules.clubs.useCases;
 import com.lucas.ClubManager.modules.clubs.dto.ClubSummaryDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
+import com.lucas.ClubManager.modules.players.repoitories.PlayerRepository;
 import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import com.lucas.ClubManager.modules.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,15 @@ import java.util.Optional;
 
 @Service
 public class GetClubSummaryUseCase {
-    @Autowired
+
     private ClubRepository clubRepository;
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public GetClubSummaryUseCase(ClubRepository clubRepository, UserRepository userRepository){
+        this.clubRepository = clubRepository;
+        this.userRepository = userRepository;
+    }
     public ClubEntity execute(ClubSummaryDTO dto){
         try{
             Optional<ClubEntity> optionalClub = this.clubRepository.findById(dto.getClubId());

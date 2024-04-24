@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegisterUserUseCase {
 
-    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    public RegisterUserUseCase(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
     public String execute(RegisterUserDTO dto){
         try{
             if(dto.getUsername()== null){

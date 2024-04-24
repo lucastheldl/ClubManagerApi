@@ -14,10 +14,14 @@ import java.util.Optional;
 
 @Service
 public class SellPlayerUseCase {
-    @Autowired
+
     private ClubRepository clubRepository;
-    @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    public SellPlayerUseCase(ClubRepository clubRepository,PlayerRepository playerRepository){
+        this.clubRepository=clubRepository;
+        this.playerRepository=playerRepository;
+    }
     @Transactional
     public String execute(BuyPlayerDTO dto) {
         try {
