@@ -35,7 +35,7 @@ public class PlayersController {
     }
 
     @GetMapping("/listAllPlayers")
-    public ResponseEntity<List<PlayerEntity>> listAllPlayers(){
+    public ResponseEntity<List<PlayerDTO>> listAllPlayers(){
 
         var result = this.listAllPlayersUseCase.execute();
         return ResponseEntity.ok(result);

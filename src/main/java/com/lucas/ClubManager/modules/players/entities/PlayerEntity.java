@@ -23,6 +23,9 @@ public class PlayerEntity {
 
     private int value;
 
+    //@Column(columnDefinition = "INTEGER DEFAULT 0")
+    //private int goals;
+
     @Column(name="club_id")
     private UUID clubId;
 
@@ -35,6 +38,4 @@ public class PlayerEntity {
     @JsonIgnore
     @JoinColumn(name="titular_club_id",insertable = false,updatable = false)
     private ClubEntity titularInClubEntity;
-
-
 }
