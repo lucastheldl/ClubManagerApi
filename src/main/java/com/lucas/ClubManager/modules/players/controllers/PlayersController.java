@@ -13,10 +13,13 @@ import java.util.List;
 @RequestMapping("/player")
 public class PlayersController {
 
-    @Autowired
     private CreatePlayerUseCase createPlayerUseCase;
-    @Autowired
     private ListAllPlayersUseCase listAllPlayersUseCase;
+    @Autowired
+    public PlayersController(CreatePlayerUseCase createPlayerUseCase, ListAllPlayersUseCase listAllPlayersUseCase) {
+        this.createPlayerUseCase = createPlayerUseCase;
+        this.listAllPlayersUseCase = listAllPlayersUseCase;
+    }
 
     @PostMapping("/createPlayer")
     public ResponseEntity<String> createPlayer(@RequestBody PlayerEntity player){

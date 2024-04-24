@@ -16,17 +16,19 @@ import java.util.List;
 @RequestMapping("/club")
 public class ClubController {
 
-    @Autowired
     private CreateClubUseCase createClubUseCase;
-    @Autowired
     private BuyPlayerUseCase buyPlayerUseCase;
-    @Autowired
     private SellPlayerUseCase sellPlayerUseCase;
-    @Autowired
     private ListAllClubsUseCase listAllClubsUseCase;
-    @Autowired
     private GetClubSummaryUseCase getClubSummaryUseCase;
-
+    @Autowired
+    public ClubController(CreateClubUseCase createClubUseCase, BuyPlayerUseCase buyPlayerUseCase, SellPlayerUseCase sellPlayerUseCase, ListAllClubsUseCase listAllClubsUseCase, GetClubSummaryUseCase getClubSummaryUseCase) {
+        this.createClubUseCase = createClubUseCase;
+        this.buyPlayerUseCase = buyPlayerUseCase;
+        this.sellPlayerUseCase = sellPlayerUseCase;
+        this.listAllClubsUseCase = listAllClubsUseCase;
+        this.getClubSummaryUseCase = getClubSummaryUseCase;
+    }
 
     @PostMapping("/createClub")
     public ResponseEntity<String> createClub(@RequestBody ClubEntity club){

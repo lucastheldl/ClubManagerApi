@@ -18,23 +18,27 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private VerifyIfHasPlayerUseCase verifyIfHasPlayerUseCase;
-    @Autowired
     private RegisterUserUseCase registerUserUseCase;
-    @Autowired
+
     private GetUserUseCase getUserUseCase;
+    @Autowired
+    public UserController(VerifyIfHasPlayerUseCase verifyIfHasPlayerUseCase, RegisterUserUseCase registerUserUseCase, GetUserUseCase getUserUseCase) {
+        this.verifyIfHasPlayerUseCase = verifyIfHasPlayerUseCase;
+        this.registerUserUseCase = registerUserUseCase;
+        this.getUserUseCase = getUserUseCase;
+    }
 
     /*@PostMapping("/verifyIfHasPlayer")
-    public String verifyIfHasPlayer(@RequestBody VerifyHasPlayerDTO verifyHasPlayerDTO){
-        var result = this.verifyIfHasPlayerUseCase.execute(verifyHasPlayerDTO);
+        public String verifyIfHasPlayer(@RequestBody VerifyHasPlayerDTO verifyHasPlayerDTO){
+            var result = this.verifyIfHasPlayerUseCase.execute(verifyHasPlayerDTO);
 
-        if(result){
-            return "Já possui o jogador";
-        }
-        //System.out.println(result);
-        return "Não possui o jogador";
-    }*/
+            if(result){
+                return "Já possui o jogador";
+            }
+            //System.out.println(result);
+            return "Não possui o jogador";
+        }*/
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegisterUserDTO dto){
         var result = this.registerUserUseCase.execute(dto);
