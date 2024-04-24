@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.clubs.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import jakarta.persistence.*;
@@ -36,6 +37,7 @@ public class ClubEntity {
     private int teamLosses ;
 
     @OneToOne
+    //@JsonIgnore
     //@JoinColumn(name="user_id", insertable = false,updatable = false)
     private UserEntity userEntity;
 

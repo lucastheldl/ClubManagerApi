@@ -3,6 +3,7 @@ package com.lucas.ClubManager.modules.clubs.controllers;
 
 import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
 import com.lucas.ClubManager.modules.clubs.dto.ClubSummaryDTO;
+import com.lucas.ClubManager.modules.clubs.dto.CreateClubDTO;
 import com.lucas.ClubManager.modules.clubs.useCases.*;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/club")
@@ -21,22 +23,24 @@ public class ClubController {
     private SellPlayerUseCase sellPlayerUseCase;
     private ListAllClubsUseCase listAllClubsUseCase;
     private GetClubSummaryUseCase getClubSummaryUseCase;
+    private PaySalariesUseCase paySalariesUseCase;
     @Autowired
-    public ClubController(CreateClubUseCase createClubUseCase, BuyPlayerUseCase buyPlayerUseCase, SellPlayerUseCase sellPlayerUseCase, ListAllClubsUseCase listAllClubsUseCase, GetClubSummaryUseCase getClubSummaryUseCase) {
+    public ClubController(CreateClubUseCase createClubUseCase, BuyPlayerUseCase buyPlayerUseCase, SellPlayerUseCase sellPlayerUseCase, ListAllClubsUseCase listAllClubsUseCase, GetClubSummaryUseCase getClubSummaryUseCase,PaySalariesUseCase paySalariesUseCase) {
         this.createClubUseCase = createClubUseCase;
         this.buyPlayerUseCase = buyPlayerUseCase;
         this.sellPlayerUseCase = sellPlayerUseCase;
         this.listAllClubsUseCase = listAllClubsUseCase;
         this.getClubSummaryUseCase = getClubSummaryUseCase;
+        this.paySalariesUseCase = paySalariesUseCase;
     }
 
     @PostMapping("/createClub")
-    public ResponseEntity<String> createClub(@RequestBody ClubEntity club){
+    public ResponseEntity<String> createClub(@RequestBody CreateClubDTO dto){
 
-            if (club == null) {
+            if (dto == null) {
                 return ResponseEntity.badRequest().body("Club entity cannot be null");
             }
-            String result = this.createClubUseCase.execute(club);
+            String result = this.createClubUseCase.execute(dto);
             return ResponseEntity.ok(result);
     }
     @PatchMapping("/buyPlayer")
@@ -58,11 +62,10 @@ public class ClubController {
 
             return ResponseEntity.ok(result);
     }
-    @GetMapping("/paySalaries")
-    public ResponseEntity<String> paySalaries(){
+    @GetMapping("/paySalaries/{id}")
+    public ResponseEntity<String> paySalaries(@PathVariable UUID clubId){
 
-        //String result = this.createClubUseCase.execute(club);
-        //return ResponseEntity.ok(result);
+        String result = this.paySalariesUseCase.execute(clubId);
         return ResponseEntity.ok("result");
     }
     @PostMapping("/clubSummary")

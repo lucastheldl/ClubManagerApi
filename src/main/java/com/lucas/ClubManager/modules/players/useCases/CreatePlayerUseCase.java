@@ -1,9 +1,12 @@
 package com.lucas.ClubManager.modules.players.useCases;
 
+import com.lucas.ClubManager.modules.players.dto.PlayerDTO;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.players.repoitories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class CreatePlayerUseCase {
@@ -14,8 +17,15 @@ public class CreatePlayerUseCase {
         this.playerRepository = playerRepository;
     }
 
-    public boolean execute(PlayerEntity player){
+    public boolean execute(PlayerDTO dto){
         try{
+            Random random = new Random();
+            //int generatedPlayerValue = dto.getOfensiveSkill + dto.getKeeperSkill + dto.getDefenderSkill * (800 + random.nextInt(201))  ;
+
+            var player = new PlayerEntity();
+            player.setName(dto.getPlayerName());
+            player.setValue(2500);
+
             this.playerRepository.save(player);
             return true;
         }catch (Exception e){

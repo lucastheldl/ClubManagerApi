@@ -3,7 +3,6 @@ package com.lucas.ClubManager.modules.clubs.useCases;
 import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
-import com.lucas.ClubManager.modules.players.dto.PlayerIdDTO;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.players.repoitories.PlayerRepository;
 import jakarta.transaction.Transactional;

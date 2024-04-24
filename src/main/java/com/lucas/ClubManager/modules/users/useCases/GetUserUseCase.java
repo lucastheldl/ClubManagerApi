@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.users.useCases;
 
+import com.lucas.ClubManager.modules.users.dto.UserDTO;
 import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import com.lucas.ClubManager.modules.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class GetUserUseCase {
     public GetUserUseCase(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public UserEntity execute(UUID id){
+    public UserDTO execute(UUID id){
 
         try{
             Optional<UserEntity> optionalUser = this.userRepository.findById(id);
@@ -28,7 +29,9 @@ public class GetUserUseCase {
             }
             UserEntity user = optionalUser.get();
 
-            return user;
+            var userDto = new UserDTO(user.getId(),user.getUsername(),user.getImgURL());
+
+            return userDto;
 
         }catch (Exception e ){
             System.err.println("Error in getting the user" + e.getMessage());

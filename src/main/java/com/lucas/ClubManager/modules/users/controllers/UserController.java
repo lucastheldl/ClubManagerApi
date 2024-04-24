@@ -1,6 +1,7 @@
 package com.lucas.ClubManager.modules.users.controllers;
 
 import com.lucas.ClubManager.modules.users.dto.RegisterUserDTO;
+import com.lucas.ClubManager.modules.users.dto.UserDTO;
 import com.lucas.ClubManager.modules.users.dto.VerifyHasPlayerDTO;
 import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import com.lucas.ClubManager.modules.users.useCases.GetUserUseCase;
@@ -52,7 +53,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }*/
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable("id") UUID id){
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") UUID id){
         var result = this.getUserUseCase.execute(id);
 
         return ResponseEntity.ok().body(result);

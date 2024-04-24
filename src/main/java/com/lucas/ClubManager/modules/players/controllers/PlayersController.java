@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.players.controllers;
 
+import com.lucas.ClubManager.modules.players.dto.PlayerDTO;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.players.useCases.CreatePlayerUseCase;
 import com.lucas.ClubManager.modules.players.useCases.ListAllPlayersUseCase;
@@ -22,8 +23,11 @@ public class PlayersController {
     }
 
     @PostMapping("/createPlayer")
-    public ResponseEntity<String> createPlayer(@RequestBody PlayerEntity player){
-        var result = this.createPlayerUseCase.execute(player);
+    public ResponseEntity<String> createPlayer(@RequestBody PlayerDTO dto){
+        if (dto.getPlayerName() == null) {
+            return ResponseEntity.badRequest().body("Player name invalid");
+        }
+        var result = this.createPlayerUseCase.execute(dto);
         if(!result){
             return ResponseEntity.internalServerError().body("Falha na operação");
         }

@@ -9,6 +9,9 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayerIdDTO {
-    private UUID playerId;
+public class PlayerDTO {
+    private String playerName;
+    //private int ofensiveSkill;
+    //private int keeperSkill;
+    //private int defenderSkill;
 }
