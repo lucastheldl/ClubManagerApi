@@ -63,10 +63,10 @@ public class ClubController {
             return ResponseEntity.ok(result);
     }
     @GetMapping("/paySalaries/{id}")
-    public ResponseEntity<String> paySalaries(@PathVariable UUID clubId){
+    public ResponseEntity<String> paySalaries(@PathVariable("id") UUID clubId){
 
-        String result = this.paySalariesUseCase.execute(clubId);
-        return ResponseEntity.ok("result");
+        ResponseEntity<String> result = this.paySalariesUseCase.execute(clubId);
+        return ResponseEntity.ok(result.getBody());
     }
     @PostMapping("/clubSummary")
     public ResponseEntity<String> clubSummary(ClubSummaryDTO dto){
