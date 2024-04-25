@@ -69,11 +69,13 @@ public class ClubController {
         return ResponseEntity.ok(result.getBody());
     }
     @PostMapping("/clubSummary")
-    public ResponseEntity<String> clubSummary(ClubSummaryDTO dto){
+    public ResponseEntity<ClubEntity> clubSummary(@RequestBody ClubSummaryDTO dto){
 
+        if(dto.getClubId() == null){
+            return ResponseEntity.badRequest().build();
+        }
         ClubEntity result = this.getClubSummaryUseCase.execute(dto);
-        //return ResponseEntity.ok(result);
-        return ResponseEntity.ok("result");
+        return ResponseEntity.ok(result);
     }@GetMapping("/listAll")
     public ResponseEntity<List<ClubEntity>> listAllClubs(){
 
