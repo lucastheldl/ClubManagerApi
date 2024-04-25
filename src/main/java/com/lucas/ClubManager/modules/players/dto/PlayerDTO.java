@@ -10,7 +10,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlayerDTO {
+    private UUID playerId;
     private String playerName;
+    private int value;
     //private int ofensiveSkill;
     //private int keeperSkill;
     //private int defenderSkill;

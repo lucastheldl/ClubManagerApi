@@ -22,6 +22,7 @@ public class ListAllPlayersUseCase {
             List< PlayerEntity > playersList = this.playerRepository.getAllPlayersList();
 
             //Stream is used to map a list of objects to another format using an mapTo custom function
+            //map instead a for loop is because map return a new list
             return playersList.stream().map(p -> mapToDTO(p)).collect(Collectors.toList());
 
         }catch (Exception e){
@@ -33,6 +34,8 @@ public class ListAllPlayersUseCase {
     private PlayerDTO mapToDTO(PlayerEntity playerEntity){
         PlayerDTO playerDTO = new PlayerDTO();
         playerDTO.setPlayerName(playerEntity.getName());
+        playerDTO.setPlayerId(playerEntity.getId());
+        playerDTO.setValue(playerEntity.getValue());
 
         return playerDTO;
 
