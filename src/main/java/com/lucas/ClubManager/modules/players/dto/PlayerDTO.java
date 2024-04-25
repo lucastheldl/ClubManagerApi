@@ -13,6 +13,7 @@ public class PlayerDTO {
     private UUID playerId;
     private String playerName;
     private int value;
+    private String valueOperation; // "INCREASE" or "DECREASE"
     //private int ofensiveSkill;
     //private int keeperSkill;
     //private int defenderSkill;

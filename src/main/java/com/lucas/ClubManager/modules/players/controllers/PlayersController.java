@@ -1,10 +1,10 @@
 package com.lucas.ClubManager.modules.players.controllers;
 
 import com.lucas.ClubManager.modules.players.dto.PlayerDTO;
-import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.players.useCases.CreatePlayerUseCase;
 import com.lucas.ClubManager.modules.players.useCases.GetPlayerUseCase;
 import com.lucas.ClubManager.modules.players.useCases.ListAllPlayersUseCase;
+import com.lucas.ClubManager.modules.players.useCases.UpdatePlayerUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +19,13 @@ public class PlayersController {
     private CreatePlayerUseCase createPlayerUseCase;
     private ListAllPlayersUseCase listAllPlayersUseCase;
     private GetPlayerUseCase getPlayerUseCase;
+    private UpdatePlayerUseCase updatePlayerUseCase;
     @Autowired
-    public PlayersController(CreatePlayerUseCase createPlayerUseCase, ListAllPlayersUseCase listAllPlayersUseCase,GetPlayerUseCase getPlayerUseCase) {
+    public PlayersController(CreatePlayerUseCase createPlayerUseCase, ListAllPlayersUseCase listAllPlayersUseCase, GetPlayerUseCase getPlayerUseCase, UpdatePlayerUseCase updatePlayerUseCase) {
         this.createPlayerUseCase = createPlayerUseCase;
         this.listAllPlayersUseCase = listAllPlayersUseCase;
         this.getPlayerUseCase = getPlayerUseCase;
+        this.updatePlayerUseCase = updatePlayerUseCase;
     }
 
     @PostMapping("/createPlayer")
@@ -52,10 +54,13 @@ public class PlayersController {
         var result = this.getPlayerUseCase.execute(playerId);
         return result;
     }
-    /*@PutMapping("/update")
-    public ResponseEntity<PlayerDTO> updatePlayer(PlayerDTO dto){
+    @PutMapping("/{id}")
+    public ResponseEntity<PlayerDTO> updatePlayer(@RequestBody PlayerDTO dto){
 
-        var result = this.getPlayerUseCase.execute(dto);
+        if(dto.getPlayerId() == null){
+            return ResponseEntity.badRequest().build();
+        }
+        var result = this.updatePlayerUseCase.execute(dto);
         return result;
-    }*/
+    }
 }
