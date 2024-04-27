@@ -1,10 +1,12 @@
 package com.lucas.ClubManager.modules.users.controllers;
 
+import com.lucas.ClubManager.modules.users.dto.LoginDTO;
 import com.lucas.ClubManager.modules.users.dto.RegisterUserDTO;
 import com.lucas.ClubManager.modules.users.dto.UserDTO;
 import com.lucas.ClubManager.modules.users.dto.VerifyHasPlayerDTO;
 import com.lucas.ClubManager.modules.users.entities.UserEntity;
 import com.lucas.ClubManager.modules.users.useCases.GetUserUseCase;
+import com.lucas.ClubManager.modules.users.useCases.LoginUseCase;
 import com.lucas.ClubManager.modules.users.useCases.RegisterUserUseCase;
 import com.lucas.ClubManager.modules.users.useCases.VerifyIfHasPlayerUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,37 +23,29 @@ public class UserController {
 
     private VerifyIfHasPlayerUseCase verifyIfHasPlayerUseCase;
     private RegisterUserUseCase registerUserUseCase;
+    private LoginUseCase loginUseCase;
 
     private GetUserUseCase getUserUseCase;
     @Autowired
-    public UserController(VerifyIfHasPlayerUseCase verifyIfHasPlayerUseCase, RegisterUserUseCase registerUserUseCase, GetUserUseCase getUserUseCase) {
+    public UserController(VerifyIfHasPlayerUseCase verifyIfHasPlayerUseCase, RegisterUserUseCase registerUserUseCase, GetUserUseCase getUserUseCase,LoginUseCase loginUseCase) {
         this.verifyIfHasPlayerUseCase = verifyIfHasPlayerUseCase;
         this.registerUserUseCase = registerUserUseCase;
         this.getUserUseCase = getUserUseCase;
+        this.loginUseCase = loginUseCase;
     }
 
-    /*@PostMapping("/verifyIfHasPlayer")
-        public String verifyIfHasPlayer(@RequestBody VerifyHasPlayerDTO verifyHasPlayerDTO){
-            var result = this.verifyIfHasPlayerUseCase.execute(verifyHasPlayerDTO);
-
-            if(result){
-                return "Já possui o jogador";
-            }
-            //System.out.println(result);
-            return "Não possui o jogador";
-        }*/
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegisterUserDTO dto){
         var result = this.registerUserUseCase.execute(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-    /*@PostMapping("/login")
-    public ResponseEntity<String> loginWithEmail(@RequestBody RegisterUserDTO dto){
-        var result = this.registerUserUseCase.execute(dto);
+    @PostMapping("/login")
+    public ResponseEntity<String> loginWithEmail(@RequestBody LoginDTO dto){
+        var result = this.loginUseCase.execute(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
-    }*/
+    }
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") UUID id){
         var result = this.getUserUseCase.execute(id);

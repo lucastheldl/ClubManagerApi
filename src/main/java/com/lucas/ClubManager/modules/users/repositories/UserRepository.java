@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 
     @Query("SELECT c FROM club c INNER JOIN c.players ply WHERE ply.name = :playerName AND c.userEntity.email = :email")
     List<ClubEntity> findByUserEmailAndPlayerId(String email, String playerName);
+    @Query("SELECT u FROM userClient u WHERE u.email = :email")
+    UserEntity findByUserEmail(String email);
 
 
 }
