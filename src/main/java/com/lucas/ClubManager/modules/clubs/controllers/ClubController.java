@@ -1,9 +1,7 @@
 package com.lucas.ClubManager.modules.clubs.controllers;
 
 
-import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
-import com.lucas.ClubManager.modules.clubs.dto.ClubSummaryDTO;
-import com.lucas.ClubManager.modules.clubs.dto.CreateClubDTO;
+import com.lucas.ClubManager.modules.clubs.dto.*;
 import com.lucas.ClubManager.modules.clubs.useCases.*;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 
@@ -77,10 +75,11 @@ public class ClubController {
         ClubEntity result = this.getClubSummaryUseCase.execute(dto);
         return ResponseEntity.ok(result);
     }@GetMapping("/listAll")
-    public ResponseEntity<List<ClubEntity>> listAllClubs(){
+    public ResponseEntity<ClubResponse> listAllClubs(@RequestParam(value ="page", defaultValue = "0",required = false)int pageNo,
+                                                     @RequestParam(value ="pageSize", defaultValue = "10",required = false)int pageSize){
 
-        var result = this.listAllClubsUseCase.execute();
-        //return ResponseEntity.ok(result);
+        var result = this.listAllClubsUseCase.execute(pageNo,pageSize);
+
         return ResponseEntity.ok(result);
     }
 }
