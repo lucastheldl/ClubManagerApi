@@ -47,6 +47,7 @@ public class ListAllClubsUseCase {
     }
     private ClubDto mapToDTO(ClubEntity clubEntity){
         ClubDto clubDTO = new ClubDto();
+        clubDTO.setId(clubEntity.getId());
         clubDTO.setName(clubEntity.getName());
 
 

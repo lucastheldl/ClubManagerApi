@@ -22,14 +22,16 @@ public class ClubController {
     private ListAllClubsUseCase listAllClubsUseCase;
     private GetClubSummaryUseCase getClubSummaryUseCase;
     private PaySalariesUseCase paySalariesUseCase;
+    private DeleteClubUseCase deleteClubUseCase;
     @Autowired
-    public ClubController(CreateClubUseCase createClubUseCase, BuyPlayerUseCase buyPlayerUseCase, SellPlayerUseCase sellPlayerUseCase, ListAllClubsUseCase listAllClubsUseCase, GetClubSummaryUseCase getClubSummaryUseCase,PaySalariesUseCase paySalariesUseCase) {
+    public ClubController(CreateClubUseCase createClubUseCase, BuyPlayerUseCase buyPlayerUseCase, SellPlayerUseCase sellPlayerUseCase, ListAllClubsUseCase listAllClubsUseCase, GetClubSummaryUseCase getClubSummaryUseCase,PaySalariesUseCase paySalariesUseCase,DeleteClubUseCase deleteClubUseCase) {
         this.createClubUseCase = createClubUseCase;
         this.buyPlayerUseCase = buyPlayerUseCase;
         this.sellPlayerUseCase = sellPlayerUseCase;
         this.listAllClubsUseCase = listAllClubsUseCase;
         this.getClubSummaryUseCase = getClubSummaryUseCase;
         this.paySalariesUseCase = paySalariesUseCase;
+        this.deleteClubUseCase = deleteClubUseCase;
     }
 
     @PostMapping("/createClub")
@@ -40,6 +42,15 @@ public class ClubController {
             }
             String result = this.createClubUseCase.execute(dto);
             return ResponseEntity.ok(result);
+    }
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> createClub(@PathVariable("id")UUID clubId){
+
+            if (clubId == null) {
+                return ResponseEntity.badRequest().body("Club cannot be found");
+            }
+             this.deleteClubUseCase.execute(clubId);
+            return ResponseEntity.ok("Club deleted");
     }
     @PatchMapping("/buyPlayer")
     public ResponseEntity<String> buyPlayer(@RequestBody BuyPlayerDTO buyPlayerDTO){
