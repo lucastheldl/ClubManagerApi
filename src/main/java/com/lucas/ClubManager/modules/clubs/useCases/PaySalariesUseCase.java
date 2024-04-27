@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.clubs.useCases;
 
+import com.lucas.ClubManager.modules.Exceptions.ResourceNotFoundException;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
@@ -26,14 +27,9 @@ public class PaySalariesUseCase {
     public ResponseEntity<String> execute(UUID clubId){
         try{
             //Pay salaries
-            Optional<ClubEntity> existingClub = clubRepository.findById(clubId);
+            ClubEntity club = clubRepository.findById(clubId).orElseThrow(()->new ResourceNotFoundException("Club could not be found"));
 
-            if (existingClub.isEmpty()) {
-                // No club with the same name exists, save the new club
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Club not found");
-            }
 
-            var club = existingClub.get();
             var amountToPay = 0;
             for (int i = 0; i < club.getPlayers().size(); i++) {
                 PlayerEntity player = club.getPlayers().get(i);

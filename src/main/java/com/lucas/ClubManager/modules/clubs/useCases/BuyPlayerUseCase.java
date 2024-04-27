@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.clubs.useCases;
 
+import com.lucas.ClubManager.modules.Exceptions.ResourceNotFoundException;
 import com.lucas.ClubManager.modules.clubs.dto.BuyPlayerDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
@@ -26,36 +27,27 @@ public class BuyPlayerUseCase {
     @Transactional
     public String execute(BuyPlayerDTO dto){
         try{
-            Optional<ClubEntity> optionalClub = this.clubRepository.findById(dto.getClubId());
-            Optional<PlayerEntity> optionalPlayer = this.playerRepository.findById(dto.getPlayerId());
+            ClubEntity club = this.clubRepository.findById(dto.getClubId()).orElseThrow(()-> new ResourceNotFoundException("Could not find Club"));
+            PlayerEntity player = this.playerRepository.findById(dto.getPlayerId()).orElseThrow(()-> new ResourceNotFoundException("Could not find Player"));
 
-            if (optionalClub.isPresent() && optionalPlayer.isPresent()) {
+            //set the club reference in the player entity
+            player.setClubId(club.getId());
+            player.setClubEntity(club);
 
-                ClubEntity club = optionalClub.get();
-                PlayerEntity player = optionalPlayer.get();
-
-
-                //set the club reference in the player entity
-                player.setClubId(club.getId());
-                player.setClubEntity(club);
-
-                //check if array is initialized if not then initiallize it
-                if (club.getPlayers() == null) {
-                    club.setPlayers(new ArrayList<>());
-                }
-                if(club.getPlayers().contains(player)){
-                    return "Error: Club already own this player";
-                }
-                /*if(club.getPlayers().size() < 22){
-                    return "Error: Cant sell any more players: min = 21 players";
-                }*/
-                club.getPlayers().add(player);
-                club.setTotalMoney(club.getTotalMoney() - player.getValue());
-                this.clubRepository.save(club);
-                return "Success in buying the player";
-            }else{
-                return "Error in buying the player";
+            //check if array is initialized if not then initiallize it
+            if (club.getPlayers() == null) {
+                club.setPlayers(new ArrayList<>());
             }
+            if(club.getPlayers().contains(player)){
+                return "Error: Club already own this player";
+            }
+            /*if(club.getPlayers().size() < 22){
+                return "Error: Cant sell any more players: min = 21 players";
+            }*/
+            club.getPlayers().add(player);
+            club.setTotalMoney(club.getTotalMoney() - player.getValue());
+            this.clubRepository.save(club);
+            return "Success in buying the player";
 
         }catch (Exception e){
             System.err.println("Error in buying player"+ e.getMessage());

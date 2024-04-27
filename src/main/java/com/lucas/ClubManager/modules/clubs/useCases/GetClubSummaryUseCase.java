@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.clubs.useCases;
 
+import com.lucas.ClubManager.modules.Exceptions.ResourceNotFoundException;
 import com.lucas.ClubManager.modules.clubs.dto.ClubSummaryDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
@@ -24,17 +25,9 @@ public class GetClubSummaryUseCase {
     }
     public ClubEntity execute(ClubSummaryDTO dto){
         try{
-            Optional<ClubEntity> optionalClub = this.clubRepository.findById(dto.getClubId());
-            Optional<UserEntity> optionalUser = this.userRepository.findById(dto.getUserId());
-
-            if(optionalClub.isEmpty()){
-                return null;
-            }if(optionalUser.isEmpty()){
-                return null;
-            }
-            ClubEntity club = optionalClub.get();
-            UserEntity user = optionalUser.get();
-
+            ClubEntity club = this.clubRepository.findById(dto.getClubId()).orElseThrow(()-> new ResourceNotFoundException("Club could not be found"));
+            UserEntity user = this.userRepository.findById(dto.getUserId()).orElseThrow(()-> new ResourceNotFoundException("User could not be found"));
+            
             if(club.getId() != user.getId()){
                 return club;
             }

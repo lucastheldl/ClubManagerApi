@@ -1,6 +1,7 @@
 package com.lucas.ClubManager.modules.clubs.useCases;
 
 
+import com.lucas.ClubManager.modules.Exceptions.ResourceNotFoundException;
 import com.lucas.ClubManager.modules.clubs.dto.CreateClubDTO;
 import com.lucas.ClubManager.modules.clubs.entities.ClubEntity;
 import com.lucas.ClubManager.modules.clubs.repositories.ClubRepository;
@@ -30,16 +31,13 @@ public class CreateClubUseCase {
 
         try {
             Optional<ClubEntity> existingClub = clubRepository.findByName(dto.getClubName());
-            Optional<UserEntity> existingUser = userRepository.findById(dto.getUserId());
+            UserEntity user = userRepository.findById(dto.getUserId()).orElseThrow(()-> new ResourceNotFoundException("Could not find user"));
 
             if (existingClub.isPresent()) {
                 // No club with the same name exists, save the new club
                return "Club with name already exists";
             }
-            if(existingUser.isEmpty()){
-                return "User Don't exist";
-            }
-            var user = existingUser.get();
+
             var club = new ClubEntity();
             club.setUserId(dto.getUserId());
             club.setTotalMoney(50000);
