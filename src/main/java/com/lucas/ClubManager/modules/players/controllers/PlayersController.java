@@ -1,6 +1,7 @@
 package com.lucas.ClubManager.modules.players.controllers;
 
 import com.lucas.ClubManager.modules.players.dto.PlayerDTO;
+import com.lucas.ClubManager.modules.players.dto.PlayerResponse;
 import com.lucas.ClubManager.modules.players.useCases.CreatePlayerUseCase;
 import com.lucas.ClubManager.modules.players.useCases.GetPlayerUseCase;
 import com.lucas.ClubManager.modules.players.useCases.ListAllPlayersUseCase;
@@ -41,9 +42,10 @@ public class PlayersController {
     }
 
     @GetMapping("/listAllPlayers")
-    public ResponseEntity<List<PlayerDTO>> listAllPlayers(){
+    public ResponseEntity<PlayerResponse> listAllPlayers(@RequestParam(value="pageNo",defaultValue = "0",required = false)int pageNo,
+                                                         @RequestParam(value = "pageSize",defaultValue = "10",required = false)int pageSize){
 
-        var result = this.listAllPlayersUseCase.execute();
+        var result = this.listAllPlayersUseCase.execute(pageNo,pageSize);
         return ResponseEntity.ok(result);
     }
     @GetMapping("/{id}")
