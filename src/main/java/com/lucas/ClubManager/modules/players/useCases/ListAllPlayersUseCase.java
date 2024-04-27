@@ -34,7 +34,6 @@ public class ListAllPlayersUseCase {
     private PlayerDTO mapToDTO(PlayerEntity playerEntity){
         PlayerDTO playerDTO = new PlayerDTO();
         playerDTO.setPlayerName(playerEntity.getName());
-        playerDTO.setPlayerId(playerEntity.getId());
         playerDTO.setValue(playerEntity.getValue());
 
         return playerDTO;

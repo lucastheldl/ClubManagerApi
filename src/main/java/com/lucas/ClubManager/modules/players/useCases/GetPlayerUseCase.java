@@ -1,5 +1,6 @@
 package com.lucas.ClubManager.modules.players.useCases;
 
+import com.lucas.ClubManager.modules.Exceptions.ResourceNotFoundException;
 import com.lucas.ClubManager.modules.players.dto.PlayerDTO;
 import com.lucas.ClubManager.modules.players.entities.PlayerEntity;
 import com.lucas.ClubManager.modules.players.repoitories.PlayerRepository;
@@ -21,20 +22,17 @@ public class GetPlayerUseCase {
 
     public ResponseEntity<PlayerDTO> execute(UUID playerId){
         try{
-            Optional<PlayerEntity> optionalPlayer = playerRepository.findById(playerId);
+            PlayerEntity player = playerRepository.findById(playerId).orElseThrow(()->new ResourceNotFoundException("Cannot find Player"));
 
-            if(optionalPlayer.isEmpty()){
-                return ResponseEntity.notFound().build();
-            }
-            PlayerEntity player = optionalPlayer.get();
             PlayerDTO playerDto = new PlayerDTO();
 
-            playerDto.setPlayerId(player.getId());
             playerDto.setPlayerName(player.getName());
+            playerDto.setValue(player.getValue());
 
             return ResponseEntity.ok().body(playerDto);
 
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }

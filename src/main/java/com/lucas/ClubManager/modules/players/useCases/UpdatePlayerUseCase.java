@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UpdatePlayerUseCase {
@@ -16,9 +17,9 @@ public class UpdatePlayerUseCase {
     public UpdatePlayerUseCase(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
-    public ResponseEntity<PlayerDTO> execute(PlayerDTO dto){
+    public ResponseEntity<PlayerDTO> execute(PlayerDTO dto, UUID playerId){
         try {
-            Optional<PlayerEntity> optionalPlayer = this.playerRepository.findById(dto.getPlayerId());
+            Optional<PlayerEntity> optionalPlayer = this.playerRepository.findById(playerId);
             if(optionalPlayer.isEmpty()){
                 return ResponseEntity.notFound().build();
             }
@@ -39,7 +40,6 @@ public class UpdatePlayerUseCase {
             this.playerRepository.save(player);
 
             PlayerDTO playerDto = new PlayerDTO();
-            playerDto.setPlayerId(player.getId());
             playerDto.setPlayerName(player.getName());
             playerDto.setValue(player.getValue());
 

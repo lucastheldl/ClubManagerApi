@@ -10,7 +10,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlayerDTO {
-    private UUID playerId;
     private String playerName;
     private int value;
     private String valueOperation; // "INCREASE" or "DECREASE"

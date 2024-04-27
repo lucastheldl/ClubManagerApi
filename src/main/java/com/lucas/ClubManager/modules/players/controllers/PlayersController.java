@@ -54,13 +54,13 @@ public class PlayersController {
         var result = this.getPlayerUseCase.execute(playerId);
         return result;
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<PlayerDTO> updatePlayer(@RequestBody PlayerDTO dto){
+    @PutMapping("/{id}/update")
+    public ResponseEntity<PlayerDTO> updatePlayer(@RequestBody PlayerDTO dto, @PathVariable("id") UUID playerId){
 
-        if(dto.getPlayerId() == null){
+        if(playerId == null){
             return ResponseEntity.badRequest().build();
         }
-        var result = this.updatePlayerUseCase.execute(dto);
+        var result = this.updatePlayerUseCase.execute(dto,playerId);
         return result;
     }
 }
